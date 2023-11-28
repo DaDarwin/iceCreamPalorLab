@@ -2,17 +2,18 @@
 
 
 /**
-@typedef {{name: string, price:number, category: string, link: string}} Item
+@typedef {{name: string, price:number, link: string}} Item
  */
 
-
+/**
+@typedef {{name: string, price:number, qty:number}} Cart_Item
+ */
 
 let shop = [
         toppings = [  
             Item = {
                 name: "sprinkles",
                 price: 10,
-                category:"toppings",
                 link: ''},
             
         ],
@@ -24,25 +25,35 @@ let shop = [
 
 let cart = []
 
-const cart_item ={
-    name:'',
-    qty:0,
-    price:0,
-}
-// function addToShop(){
-//     let item ={
-//         name:document.
-//     }
-// }
 
 function addToCart(category, name){
     
-    item = shop[category].find( item => item.name == name)
+    Item = shop[category].find( Item => Item.name == name)
 
-    cart_item.name = item.name
-    cart_item.qty ++
-    cart_item.price = item.price
-    cart += cart_item
-}
+    if(cart.find(Cart_Item => Cart_Item.name == name) != undefined){
+        let item = cart.find(Cart_Item => Cart_Item.name == name)
+        console.log(item)
+        index = cart.indexOf(item)
+        console.log(index)
+        cart[index].qty ++
+    }
+    
+    else{
+        let Cart_Item = {
+        name: Item.name,
+        price: Item.price,
+        qty: 1}
+        cart.push(Cart_Item)
+    }
+    console.log(cart)
+}   
 
 
+
+
+// function addToShop(){
+//     let Item ={
+//         name:document.getElementById.input
+//         price:
+//     }
+// }

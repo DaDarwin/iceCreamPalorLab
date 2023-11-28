@@ -129,28 +129,47 @@ let shop = [
         }
         console.log(cart)
         drawCart()
+        drawTotal()
     }   
     
     function drawCart(){
+        // FIXME weird bug where it increases the number of divs it has
         for(i=0; i<cart.length;i++){
-            if(cart[i].qty == 1){
-                x = (`<h5 id="${cart[i].name}" class="row d-flex justify-content-between">
-                <Span class="col-3">${cart[i].name}</Span>
-                <Span class="col-3">${cart[i].qty}</Span>
-                <Span class="col-3">${cart[i].price}</Span>
-                <Span class="col-3">${cart[i].qty*cart[i].price}</Span>
-                </h5>`)
-                
-                document.getElementById('cart').innerHTML += x}
+            debugger
 
-            else{
-                x =(`<Span class="col-3">${cart[i].name}</Span>
-                <Span class="col-3">${cart[i].qty}</Span>
-                <Span class="col-3">${cart[i].price}</Span>
-                <Span class="col-3">${cart[i].qty*cart[i].price}</Span>`)
+            if(cart[i].qty > 1){
+                const elm = document.getElementById(cart[i].name)
+                elm.remove()*10000}
+
+            x = (`<h5 id="${cart[i].name}" class="row d-flex justify-content-between">
+            <Span class="col-3">${cart[i].name}</Span>
+            <Span class="col-3"><i class="btn mdi mdi-delete" onclick="del('${cart[i].name}')"></i>${cart[i].qty}</Span>
+            <Span class="col-3">${cart[i].price}</Span>                
+            <Span class="col-3">${cart[i].qty*cart[i].price}</Span>
+            </h5>`)
                 
-                document.getElementById(cart[i].name).innerHTML = x}
+            document.getElementById('cart').innerHTML += x}
         }
+    
+
+    function drawTotal(){
+        total = 0
+        for(i=0; i<cart.length; i++){
+            total += (cart[i].price * cart[i].qty)
+        }
+        document.getElementById('Total').innerText = `$${total}`
+    }
+
+    function del(name){
+        let item = cart.find(Cart_Item => Cart_Item.name == name)
+        i = cart.indexOf(item)
+        cart[i].qty--
+
+        if (cart[i].qty <= 0){
+            const elm = document.getElementById(cart[i].name)
+            elm.remove()
+        }
+        drawCart()
     }
     
     

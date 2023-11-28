@@ -8,71 +8,70 @@
 /**
 @typedef {{name: string, price:number, qty:number}} Cart_Item
  */
-
+/**
+ * @type {Item[]}
+ */
 let shop = [ 
-            Item = {
-                name: "Sprinkles",
-                price: 2,
-                category:'toppings',
-                link: ''},
-            Item = {
-                name: "Chocolate Chips",
-                price: 3,
-                category:'toppings',
-                link: ''},
-            Item = {
-                name: "Gummy Worms",
-                price: 2,
-                category:'toppings',
-                link: ''},    
-            Item = {
-                name: "Waffle Cone",
-                price: 3,
-                category:'vessels',
-                link: ''},
-            Item = {
-                name: "Waffle Bowl",
-                price: 4,
-                category:'vessels',
-                link: ''},
-            Item = {
-                name: "Dipped Cone",
-                price: 5,
-                category:'vessels',
-                link: ''},
-            Item = {
-                name: "Vanilla",
-                price: 3,
-                category:'iceCream',
-                link: ''},
-            Item = {
-                name: "Chocolate",
-                price: 4,
-                category:'iceCream',
-                link: ''},
-            Item = {
-                name: "Strawberry",
-                price: 4,
-                category:'iceCream',
-                link: ''},
-            Item = {
-                name: "Rocky Road",
-                price: 5,
-                category:'iceCream',
-                link: ''},
-            Item = {
-                name: "Mint",
-                price: 3,
-                category:'iceCream',
-                link: ''},
-            Item = {
-                name: "Birthday Cake",
-                price: 5,
-                category:'iceCream',
-                link: ''}
+            {name: "Sprinkles",
+            price: 2,
+            category:'toppings',
+            link: ''},
+           
+            {name: "Chocolate Chips",
+            price: 3,
+            category:'toppings',
+            link: ''},
+            
+            {name: "Gummy Worms",
+            price: 2,
+            category:'toppings',
+            link: ''},    
+            
+            {name: "Waffle Cone",
+            price: 3,
+            category:'vessels',
+            link: ''},
+            
+            {name: "Waffle Bowl",
+            price: 4,
+            category:'vessels',
+            link: ''},
+            
+            {name: "Dipped Cone",
+            price: 5,
+            category:'vessels',
+            link: ''},
+            
+            {name: "Vanilla",
+            price: 3,
+            category:'iceCream',
+            link: ''},
+            
+            {name: "Chocolate",
+            price: 4,
+            category:'iceCream',
+            link: ''},
+            
+            {name: "Strawberry",
+            price: 4,
+            category:'iceCream',
+            link: ''},
+            
+            {name: "Rocky Road",
+            price: 5,
+            category:'iceCream',
+            link: ''},
+            
+            {name: "Mint",
+            price: 3,
+            category:'iceCream',
+            link: ''},
+            
+            {name: "Birthday Cake",
+            price: 5,
+            category:'iceCream',
+            link: ''}
     ]
-    
-    
     // function addToShop(){
     //     let Item ={
     //         name:document.getElementById.input
@@ -105,7 +104,9 @@ let shop = [
 
             document.getElementById(shop[i].category).innerHTML += x
     }}
-
+/**
+ * @type {Cart_Item[]}
+ */
     let cart = []
     
     function addToCart(name){
@@ -126,29 +127,30 @@ let shop = [
             price: Item.price,
             qty: 1}
             cart.push(Cart_Item)
+            drawCart()
         }
         console.log(cart)
-        drawCart()
         drawTotal()
-    }   
-    
+    } 
+
+    let x=''
+
     function drawCart(){
         // FIXME weird bug where it increases the number of divs it has
         for(i=0; i<cart.length;i++){
-            // debugger
 
-            if(cart[i].qty > 1){
-                const elm = document.getElementById(cart[i].name)
-                elm.remove()*10000}
-
-            x = (`<h5 id="${cart[i].name}" class="row d-flex justify-content-between">
+            x += `<h5 id="${cart[i].name}" class="row d-flex justify-content-between">
             <Span class="col-3">${cart[i].name}</Span>
             <Span class="col-3"><i class="btn mdi mdi-delete" onclick="del('${cart[i].name}')"></i>${cart[i].qty}</Span>
             <Span class="col-3">${cart[i].price}</Span>                
             <Span class="col-3">${cart[i].qty*cart[i].price}</Span>
-            </h5>`)
+            </h5>`
                 
-            document.getElementById('cart').innerHTML += x}
+            document.getElementById('cart').innerHTML = x}
+        }
+
+        function updateCart(){
+
         }
     
 
@@ -169,8 +171,16 @@ let shop = [
             const elm = document.getElementById(cart[i].name)
             elm.remove()
         }
-        drawCart()
+        updateCart()
     }
     
     
     drawStore()
+
+    function logShop(){
+        console.log(shop)
+    }
+
+    function logCart(){
+        console.log(shop)
+    }

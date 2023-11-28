@@ -2,34 +2,116 @@
 
 
 /**
-@typedef {{name: string, price:number, link: string}} Item
+@typedef {{name: string, price:number,category:string, link: string}} Item
  */
 
 /**
 @typedef {{name: string, price:number, qty:number}} Cart_Item
  */
 
-let shop = [
-        toppings = [  
+let shop = [ 
             Item = {
-                name: "sprinkles",
-                price: 10,
+                name: "Sprinkles",
+                price: 2,
+                category:'toppings',
                 link: ''},
-            
-        ],
-        vessels = [],
-        iceCream = [],
-]
-
-
-
-let cart = []
-
-
-function addToCart(category, name){
+            Item = {
+                name: "Chocolate Chips",
+                price: 3,
+                category:'toppings',
+                link: ''},
+            Item = {
+                name: "Gummy Worms",
+                price: 2,
+                category:'toppings',
+                link: ''},    
+            Item = {
+                name: "Waffle Cone",
+                price: 3,
+                category:'vessels',
+                link: ''},
+            Item = {
+                name: "Waffle Bowl",
+                price: 4,
+                category:'vessels',
+                link: ''},
+            Item = {
+                name: "Dipped Cone",
+                price: 5,
+                category:'vessels',
+                link: ''},
+            Item = {
+                name: "Vanilla",
+                price: 3,
+                category:'iceCream',
+                link: ''},
+            Item = {
+                name: "Chocolate",
+                price: 4,
+                category:'iceCream',
+                link: ''},
+            Item = {
+                name: "Strawberry",
+                price: 4,
+                category:'iceCream',
+                link: ''},
+            Item = {
+                name: "Rocky Road",
+                price: 5,
+                category:'iceCream',
+                link: ''},
+            Item = {
+                name: "Mint",
+                price: 3,
+                category:'iceCream',
+                link: ''},
+            Item = {
+                name: "Birthday Cake",
+                price: 5,
+                category:'iceCream',
+                link: ''}
+    ]
     
-    Item = shop[category].find( Item => Item.name == name)
+    
+    // function addToShop(){
+    //     let Item ={
+    //         name:document.getElementById.input
+    //         price:
+    //     }
+    // }
 
+    // function drawStore(){
+    //     shop.forEach(
+    //          x = (`<button class='col-4 btn btn-outline-primary' onclick="addToCart(${Item.name})">
+    //             <div><img src="${Item.link}" alt="${Item.name}"></div>
+    //             <div>
+    //                 <span>${Item.name}</span>
+    //                 <span>$${Item.price}</span>
+    //             </div>           
+    //         </button>`)
+
+    //         document.getElementById(Item.category).innerHTML += x)
+    // }
+
+    function drawStore(){
+        for(i=0; i<shop.length;i++){
+             x = (`<button class='col-4 btn btn-outline-primary' onclick="addToCart('${shop[i].name}')">
+                <div><img src="${shop[i].link}" alt="${shop[i].name}"></div>
+                <div>
+                    <span>${shop[i].name}</span>
+                    <span>$${shop[i].price}</span>
+                </div>           
+            </button>`)
+
+            document.getElementById(shop[i].category).innerHTML += x
+    }}
+
+    let cart = []
+    
+    function addToCart(name){
+        
+        Item = shop.find( Item => Item.name == name)
+        
     if(cart.find(Cart_Item => Cart_Item.name == name) != undefined){
         let item = cart.find(Cart_Item => Cart_Item.name == name)
         console.log(item)
@@ -40,20 +122,36 @@ function addToCart(category, name){
     
     else{
         let Cart_Item = {
-        name: Item.name,
-        price: Item.price,
-        qty: 1}
-        cart.push(Cart_Item)
+            name: Item.name,
+            price: Item.price,
+            qty: 1}
+            cart.push(Cart_Item)
+        }
+        console.log(cart)
+        drawCart()
+    }   
+    
+    function drawCart(){
+        for(i=0; i<cart.length;i++){
+            if(cart[i].qty == 1){
+                x = (`<h5 id="${cart[i].name}" class="row d-flex justify-content-between">
+                <Span class="col-3">${cart[i].name}</Span>
+                <Span class="col-3">${cart[i].qty}</Span>
+                <Span class="col-3">${cart[i].price}</Span>
+                <Span class="col-3">${cart[i].qty*cart[i].price}</Span>
+                </h5>`)
+                
+                document.getElementById('cart').innerHTML += x}
+
+            else{
+                x =(`<Span class="col-3">${cart[i].name}</Span>
+                <Span class="col-3">${cart[i].qty}</Span>
+                <Span class="col-3">${cart[i].price}</Span>
+                <Span class="col-3">${cart[i].qty*cart[i].price}</Span>`)
+                
+                document.getElementById(cart[i].name).innerHTML = x}
+        }
     }
-    console.log(cart)
-}   
-
-
-
-
-// function addToShop(){
-//     let Item ={
-//         name:document.getElementById.input
-//         price:
-//     }
-// }
+    
+    
+    drawStore()

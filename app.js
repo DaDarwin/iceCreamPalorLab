@@ -135,7 +135,7 @@ let shop = [
     function drawCart(){
         // FIXME weird bug where it increases the number of divs it has
         for(i=0; i<cart.length;i++){
-            debugger
+            // debugger
 
             if(cart[i].qty > 1){
                 const elm = document.getElementById(cart[i].name)

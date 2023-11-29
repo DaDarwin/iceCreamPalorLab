@@ -94,7 +94,7 @@ let shop = [
 
     function drawStore(){
         for(i=0; i<shop.length;i++){
-             x = (`<button class='col-4 btn btn-outline-primary' onclick="addToCart('${shop[i].name}')">
+             z = (`<button class='col-4 btn btn-outline-primary' onclick="addToCart('${shop[i].name}')">
                 <div><img src="${shop[i].link}" alt="${shop[i].name}"></div>
                 <div>
                     <span>${shop[i].name}</span>
@@ -102,7 +102,7 @@ let shop = [
                 </div>           
             </button>`)
 
-            document.getElementById(shop[i].category).innerHTML += x
+            document.getElementById(shop[i].category).innerHTML += z
     }}
 /**
  * @type {Cart_Item[]}
@@ -113,21 +113,20 @@ let shop = [
         
         Item = shop.find( Item => Item.name == name)
         
-    if(cart.find(Cart_Item => Cart_Item.name == name) != undefined){
-        let item = cart.find(Cart_Item => Cart_Item.name == name)
-        console.log(item)
-        index = cart.indexOf(item)
-        console.log(index)
-        cart[index].qty ++
-    }
+        if(cart.find(Cart_Item => Cart_Item.name == name) != undefined){
+            let item = cart.find(Cart_Item => Cart_Item.name == name)
+            index = cart.indexOf(item)
+            cart[index].qty ++
+            updateCart(cart[index])
+        }
     
-    else{
-        let Cart_Item = {
-            name: Item.name,
-            price: Item.price,
-            qty: 1}
+        else{
+            let Cart_Item = {
+                name: Item.name,
+                price: Item.price,
+                qty: 1}
             cart.push(Cart_Item)
-            drawCart()
+            drawCart(Cart_Item)
         }
         console.log(cart)
         drawTotal()
@@ -135,22 +134,22 @@ let shop = [
 
     let x=''
 
-    function drawCart(){
-        // FIXME weird bug where it increases the number of divs it has
-        for(i=0; i<cart.length;i++){
+    function drawCart(i){
 
-            x += `<h5 id="${cart[i].name}" class="row d-flex justify-content-between">
-            <Span class="col-3">${cart[i].name}</Span>
-            <Span class="col-3"><i class="btn mdi mdi-delete" onclick="del('${cart[i].name}')"></i>${cart[i].qty}</Span>
-            <Span class="col-3">${cart[i].price}</Span>                
-            <Span class="col-3">${cart[i].qty*cart[i].price}</Span>
+            x += `<h5 id="${i.name}" class="row d-flex justify-content-between">
+            <Span class="col-3">${i.name}</Span>
+            <Span class="col-3"><i class="btn mdi mdi-delete" onclick="del('${i.name}')"></i>${i.qty}</Span>
+            <Span class="col-3">${i.price}</Span>                
+            <Span class="col-3">${i.qty*i.price}</Span>
             </h5>`
                 
-            document.getElementById('cart').innerHTML = x}
+            document.getElementById('cart').innerHTML = x
         }
+        
 
-        function updateCart(){
-
+        // TODO selector for updating price and qty
+        function updateCart(i){
+            document.getElementById(i.name)
         }
     
 

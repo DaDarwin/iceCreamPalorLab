@@ -113,7 +113,7 @@ let shop = [
         
         Item = shop.find( Item => Item.name == name)
         
-        if(cart.find(Cart_Item => Cart_Item.name == name) != undefined){
+        if(cart.find(Cart_Item => Cart_Item.name == name)){
             let item = cart.find(Cart_Item => Cart_Item.name == name)
             index = cart.indexOf(item)
             cart[index].qty ++
@@ -133,24 +133,37 @@ let shop = [
     } 
 
     let x=''
-
+    
+    // FIXME adding a new type sets qty back to 1 until it's manually updated
     function drawCart(i){
-
-            x += `<h5 id="${i.name}" class="row d-flex justify-content-between">
-            <Span class="col-3">${i.name}</Span>
-            <Span class="col-3"><i class="btn mdi mdi-delete" onclick="del('${i.name}')"></i>${i.qty}</Span>
-            <Span class="col-3">${i.price}</Span>                
-            <Span class="col-3">${i.qty*i.price}</Span>
-            </h5>`
-                
-            document.getElementById('cart').innerHTML = x
-        }
         
-
-        // TODO selector for updating price and qty
-        function updateCart(i){
-            document.getElementById(i.name)
+        x += 
+        `
+        <h5 id="${i.name}" class="row d-flex justify-content-between">
+        <Span class="col-4"><i class="btn mdi mdi-delete text-danger m-0 p-0" onclick="del('${i.name}')"></i>${i.name}</Span>
+        <Span class="col-2">${i.qty}</Span>
+                <Span id="qty" class="col-3">$${i.price}</Span>                
+                <Span id="total "class="col-3">$${i.qty*i.price}</Span>
+            </h5>
+            `
+            
+            document.getElementById('cart').innerHTML = x
+            
+            // NOTE its fixed now but i hate it
+            for(i=0;i<cart.length;i++){
+                updateCart(cart[i])}
         }
+
+        function updateCart(i){
+            let cartChildren = document.getElementById(i.name).children
+            
+            console.log(cartChildren[1])
+            cartChildren[1].innerText = i.qty
+            console.log(cartChildren[1])
+
+            console.log(cartChildren[3])
+            cartChildren[3].innerText = `$${i.qty*i.price}`
+            console.log(cartChildren[3])}
     
 
     function drawTotal(){
@@ -170,7 +183,7 @@ let shop = [
             const elm = document.getElementById(cart[i].name)
             elm.remove()
         }
-        updateCart()
+        updateCart(cart[i])
     }
     
     
@@ -183,3 +196,28 @@ let shop = [
     function logCart(){
         console.log(shop)
     }
+
+
+
+
+
+
+
+
+    // function drawCart(i){
+        
+    //     x += `<h5 id="${i.name}" class="row d-flex justify-content-between">
+    //     <Span class="col-3">${i.name}</Span>
+    //     <Span class="col-3"><i class="btn mdi mdi-delete" onclick="del('${i.name}')"></i>${i.qty}</Span>
+    //     <Span class="col-3">$${i.price}</Span>                
+    //     <Span class="col-3">$${i.qty*i.price}</Span>
+    //     </h5>`
+        
+    //     document.getElementById('cart').innerHTML = x
+    // }
+    // function updateCart(i){
+    //     let cartElm = document.getElementById(i.name)
+    //     console.log(cartElm)
+    //     cartElm.childNodes[3].innerText = i.qty
+    //     cartElm.childNodes[7].innerText = `$${i.qty*i.price}`
+    // }

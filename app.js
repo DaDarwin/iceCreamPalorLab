@@ -90,6 +90,9 @@ let shop = [
     //         document.getElementById(Item.category).innerHTML += x)
     // }
     
+
+
+
     function drawStore(){
         for(i=0; i<shop.length;i++){
             z = (`<button class='col-4 btn btn-outline-primary' onclick="addToCart('${shop[i].name}')">
@@ -130,48 +133,79 @@ function addToCart(name){
         drawTotal()
     } 
     
-    let x=''
     
-    // FIXME adding a new type sets qty back to 1 until it's manually updated
-    function drawCart(i){
+    
+    
+    function drawCart(item){
         
-        x += 
-        `
-        <h5 id="${i.name}" class="row d-flex justify-content-between">
-        <Span class="col-4"><i class="btn mdi mdi-delete text-danger m-0 p-0" onclick="del('${i.name}')"></i>${i.name}</Span>
-        <Span class="col-2">${i.qty}</Span>
-        <Span id="qty" class="col-3">$${i.price}</Span>                
-        <Span id="total "class="col-3">$${i.qty*i.price}</Span>
-        </h5>
-        `
+        const CartItemElm = document.createElement('h5')
+
+        const CartNameElm = document.createElement('h5')
+        CartTotalElm.innerText = item.name
+
+        const CartQtyElm = document.createElement('h5')
+        CartTotalElm.innerText = item.qty
+
+        const CartPriceElm = document.createElement('h5')
+        CartTotalElm.innerText = item.price
+
+        const CartTotalElm = document.createElement('h5')
+        CartTotalElm.innerText = item.qty*i.price
+
+        CartItemElm.append(CartNameElm, CartQtyElm, CartPriceElm, CartTotalElm)
+        document.getElementById('cart').append(CartItemElm)
+    }
+
+
+        // STUB adding a new type sets qty back to 1 until it's manually updated
+        // let x=''
+        // x +=
+        // `
+        // <h5 id="${i.name}" class="row d-flex justify-content-between">
+        // <Span class="col-4"><i class="btn mdi mdi-delete text-danger m-0 p-0" onclick="del('${i.name}')"></i>${i.name}</Span>
+        // <Span class="col-2">${i.qty}</Span>
+        // <Span id="qty" class="col-3">$${i.price}</Span>                
+        // <Span id="total "class="col-3">$${i.qty*i.price}</Span>
+        // </h5>
+        // `
         
-        document.getElementById('cart').innerHTML = x
+        // document.getElementById('cart').innerHTML += x
+        // STUB its fixed now but i hate it
+        // for(i=0;i<cart.length;i++){
+            //     updateCart(cart[i])}
+            // }
+        // function drawCart(i){
+            
+            //     x += `<h5 id="${i.name}" class="row d-flex justify-content-between">
+            //     <Span class="col-3">${i.name}</Span>
+            //     <Span class="col-3"><i class="btn mdi mdi-delete" onclick="del('${i.name}')"></i>${i.qty}</Span>
+            //     <Span class="col-3">$${i.price}</Span>                
+            //     <Span class="col-3">$${i.qty*i.price}</Span>
+        //     </h5>`
         
-        // NOTE its fixed now but i hate it
-        for(i=0;i<cart.length;i++){
-            updateCart(cart[i])}
-        }
+        //     document.getElementById('cart').innerHTML = x
+        // }
+        // function updateCart(i){
+            //     let cartElm = document.getElementById(i.name)
+            //     console.log(cartElm)
+            //     cartElm.childNodes[3].innerText = i.qty
+            //     cartElm.childNodes[7].innerText = `$${i.qty*i.price}`
+            //
 
         function updateCart(i){
             let cartChildren = document.getElementById(i.name).children
-            
-            if(testing == true){console.log(cartChildren[1])
-                console.log(cartChildren[3])}
-            
             cartChildren[1].innerText = i.qty
             cartChildren[3].innerText = `$${i.qty*i.price}`
-            
-            if(testing == true){console.log(cartChildren[1])
-                console.log(cartChildren[3])}}
-            
-            
-            function drawTotal(){
-                total = 0
-                for(i=0; i<cart.length; i++){
-                    total += (cart[i].price * cart[i].qty)
-                }
-                document.getElementById('Total').innerText = `$${total}`
+            drawTotal()
+        }
+        
+        function drawTotal(){
+            total = 0
+            for(i=0; i<cart.length; i++){
+                total += (cart[i].price * cart[i].qty)
             }
+            document.getElementById('Total').innerText = `$${total}`
+        }
             
             function del(name){
                 let item = cart.find(Cart_Item => Cart_Item.name == name)
@@ -202,45 +236,3 @@ function addToCart(name){
     
 
 
-
-    // function drawCart(i){
-        
-        //     x += `<h5 id="${i.name}" class="row d-flex justify-content-between">
-        //     <Span class="col-3">${i.name}</Span>
-        //     <Span class="col-3"><i class="btn mdi mdi-delete" onclick="del('${i.name}')"></i>${i.qty}</Span>
-        //     <Span class="col-3">$${i.price}</Span>                
-        //     <Span class="col-3">$${i.qty*i.price}</Span>
-    //     </h5>`
-    
-    //     document.getElementById('cart').innerHTML = x
-    // }
-    // function updateCart(i){
-        //     let cartElm = document.getElementById(i.name)
-        //     console.log(cartElm)
-        //     cartElm.childNodes[3].innerText = i.qty
-        //     cartElm.childNodes[7].innerText = `$${i.qty*i.price}`
-        // }
-let testing = false
-
-function testStartup(){
-    if(testing == false){testing = true}
-
-    else{testing = false}}
-
-q = ''
-function drawStoreTest(){
-    if(testing){shop.forEach(Item => 
-        q +=`
-        <button class='col-4 btn btn-outline-primary' onclick="addToCart('${Item.name}')">
-            <div>
-                <img src="${Item.link}" alt="${Item.name}">
-            </div>
-            <div>
-                <span>${Item.name}</span>
-                <span>$${Item.price}</span>
-            </div>           
-        </button>`)
-        
-        console.log(q)}
-
-}
